@@ -1,0 +1,699 @@
+/* ============ Fonts ============ */
+@font-face {
+  font-family: "OffBit";
+  src: url("fonts/OffBitTrial-Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "OffBit";
+  src: url("fonts/OffBitTrial-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "MD Thermochrome";
+  src: url("fonts/MDThermochrome0.3-Semibold-Trial.otf") format("opentype");
+  font-weight: 600; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "MD Thermochrome";
+  src: url("fonts/MDThermochrome0.3-Regular-Trial.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "MD Thermochrome";
+  src: url("fonts/MDThermochrome0.3-Medium-Trial.otf") format("opentype");
+  font-weight: 500; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "OffBit Dot";
+  src: url("fonts/OffBitTrial-DotBold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "SF Pro Rounded";
+  src: url("fonts/SF-Pro-Rounded-Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: block;
+}
+
+/* ============ Reset / canvas ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; }
+body {
+  background: #ffffff;
+  overflow-x: hidden;
+  font-family: "MD Thermochrome", system-ui, sans-serif;
+}
+
+/* Section 1 — hero, fills the viewport (the "section 1 breaker" at y900 = the fold) */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #ffffff;
+}
+/* Section 2 — scrolls below; its height is set by JS to the scaled design height */
+.below {
+  position: relative;
+  width: 100%;
+  overflow: visible;   /* proof no longer clips: postcard overflows the top into the hero */
+  background: #ffffff;
+}
+
+/* Design canvas — children absolutely positioned in 1600-wide space, scaled to width */
+.stage {
+  position: absolute;
+  top: 0; left: 0;
+  transform-origin: top left;
+  width: 1600px; height: 900px;
+  background: #ffffff;
+}
+.stage2 { height: 618px; background: transparent; }   /* 1518 - 900 */
+.stage > * { position: absolute; }
+
+/* ============ Logo ============ */
+.logo { left: 12px; top: 12px; width: 32px; height: 32px; }
+
+/* ============ Nav ============ */
+.nav { left: 0; top: 0; width: 100%; height: 100%; }
+.nav a {
+  position: absolute;
+  top: 15px;
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-link {
+  font-family: "MD Thermochrome", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1.28px;
+}
+.nav-claim {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0;
+}
+
+/* ============ Headline ============ */
+.hl {
+  font-family: "OffBit", monospace;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 88px;
+  letter-spacing: 0;
+  color: #000;
+  white-space: nowrap;
+}
+/* lines 1 & 3 use the dot-matrix OffBit cut; line 2 (strip-text) is solid bold */
+.line1, .line3 { font-family: "OffBit Dot", monospace; opacity: 0.6; }  /* Figma layer opacity 60% */
+.line1 { left: 294px; top: 251px; }
+.line3 { left: 136px; top: 407px; }
+
+/* ============ "middle strip" auto-layout (text + gap + LED bar) ============ */
+.middle-strip {
+  left: 149px; top: 327px;          /* frame origin */
+  display: flex;
+  flex-direction: row;              /* HORIZONTAL */
+  align-items: flex-end;            /* counterAxisAlignItems = MAX (bottom) */
+  gap: 20px;                        /* itemSpacing */
+  z-index: 5;
+}
+.strip-text {                       /* hug content, normal flex child */
+  position: static;
+  flex: 0 0 auto;
+  width: 646px;                     /* Figma text-box hug width -> gap starts at 934 */
+  /* Chrome renders OffBit ~3% wider, overflowing the box and eating the gap;
+     compress glyphs back to Figma's visual width so the 20px gap is preserved */
+  transform: scaleX(0.971);
+  transform-origin: left center;
+}
+.led-bar {                          /* fixed 478x90; LED graphic overflows it */
+  position: relative;
+  flex: 0 0 auto;
+  width: 478px;
+  height: 90px;
+}
+.led-bar .led {
+  position: absolute;
+  left: 0;
+  top: -20px;                       /* LED render starts 20px above the bar */
+  width: 478px;
+  height: 173.7px;
+}
+
+/* ============ Floating pill ============ */
+.pill { left: 217.4px; top: 179px; width: 237.3px; height: 88.3px; z-index: 6; }
+
+/* ============ Live counter chips (exact Figma: rotated glass pills) ============ */
+.chip2 {
+  position: absolute;
+  z-index: 6;
+  transform-origin: 0 0;                 /* rotate around top-left (matches relativeTransform) */
+  border-radius: 8px;
+  /* dark glass body: top #383838 -> bottom #1A1A1A @ 90% */
+  background: linear-gradient(180deg, rgba(56,56,56,0.9) 0%, rgba(26,26,26,0.9) 100%);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);            /* Figma BACKGROUND_BLUR r=7 */
+  /* glassy rim — Rectangle 1: gradient white->grey stroke + 4px LAYER_BLUR.
+     Done as soft inset glows (box-shadow blur isn't clipped, so it reads blurred). */
+  box-shadow:
+    inset 1.5px 2px 3.5px rgba(255,255,255,0.55),
+    inset -1.5px -2px 4px rgba(215,215,215,0.16),
+    inset 0 0 2.5px 0.5px rgba(255,255,255,0.22);
+}
+/* extra-soft blurred ring that bleeds slightly outside the pill, like the Figma stroke */
+.chip2::before {
+  content: ""; position: absolute; inset: -1.5px; border-radius: 9.5px; pointer-events: none;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-bottom-color: rgba(170,170,170,0.18);
+  border-right-color: rgba(190,190,190,0.22);
+  filter: blur(2.2px);                   /* genuine blur, NOT mask-clipped */
+}
+.chip2 .ci { position: absolute; display: block; }
+.chip2 .roller {
+  position: absolute;
+  display: inline-flex;
+  height: 19px;
+  overflow: hidden;
+  color: #fff;
+  font-family: "SF Pro Rounded", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+.chip2 .roller .dg { display: inline-block; height: 19px; overflow: hidden; }
+.chip2 .roller .dg .col { display: flex; flex-direction: column; }
+.chip2 .roller .dg .col > span,
+.chip2 .roller .sep {
+  display: block;
+  height: 19px;
+  line-height: 19px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.chip2 .roller .sep { display: inline-block; }
+
+/* per-chip transform + child geometry (from relativeTransform, unrotated local space) */
+.c-eye   { left: 1132.8px; top: 238.0px; width: 91px;  height: 27px; transform: rotate(3.8deg); }
+.c-eye   .ci-eye  { left: 6px;   top: 7.5px;  width: 17px; }
+.c-eye   .roller  { left: 27px;  top: 4px; }
+
+.c-heart { left: 219.0px;  top: 475.6px; width: 83px;  height: 28px; transform: rotate(-5.94deg); }
+.c-heart .ci-heart{ left: 4px;   top: 3px;    width: 24px; }
+.c-heart .roller  { left: 30px;  top: 4.5px; }
+
+.c-fire  { left: 518.1px;  top: 214.0px; width: 106px; height: 27px; transform: rotate(4.47deg); overflow: visible;
+  background:
+    radial-gradient(70% 130% at 18% 45%, rgba(255,68,0,0.5) 0%, rgba(255,68,0,0) 70%),
+    linear-gradient(180deg, rgba(56,56,56,0.9) 0%, rgba(26,26,26,0.9) 100%);
+}
+.c-fire  .ci-fire { left: -6px;  top: -29.5px; width: 52px; }
+.c-fire  .roller  { left: 32px;  top: 4px; }
+
+/* ============ Sub copy ============ */
+.sub {
+  left: 416px; top: 580px; width: 316px;
+  font-family: "MD Thermochrome", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1.28px;
+  color: #000;
+  text-transform: uppercase;
+}
+.sub { left: 297px; top: 535px; }   /* re-synced position */
+
+/* ============ Blue rectangle band + parallax clouds (behind everything) ============ */
+.bluerect {
+  left: 103px; top: 406px;
+  width: 1416px; height: 231px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #428CFD 0%, #94C9F4 100%);
+  z-index: 0;
+  overflow: hidden;            /* clip drifting clouds to the band */
+}
+/* Figma "Noise" fill (Multi, density 100%, opacity 20%) — generated grain behind the clouds */
+.band-noise {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+.cloud-layer { position: absolute; inset: 0; pointer-events: none; }  /* far appended first, near on top */
+img.cloud {
+  position: absolute; left: 0; top: 0;
+  display: block;
+  object-fit: cover;           /* texture fills the Figma-sized box (matches FILL scale mode) */
+  mix-blend-mode: screen;      /* "screen mode" — clouds lighten the blue gradient */
+  will-change: transform;
+  pointer-events: none;
+}
+/* "plane height" track (Figma frame @1277,296 278x452) — the plane moves within this */
+.plane-height {
+  left: 1277px; top: 296px;
+  width: 278px; height: 452px;
+  z-index: 1;
+}
+/* the paper-plane frame — slides vertically within the track (translateY set by JS).
+   Extended 50px to the LEFT so the plane's left wing isn't cropped. */
+.spline-slot {
+  position: absolute;
+  left: -50px; top: 0;             /* plane-track.js translates within the taller track (range auto = 461-268) */
+  width: 328px; height: 268px;
+  will-change: transform;
+}
+.spline-slot canvas {
+  display: block;
+  width: 328px; height: 268px;
+  background: transparent;
+  pointer-events: none;   /* disable Spline native wheel-zoom/orbit; flick+track use window events */
+}
+
+/* ============ Newest releases card ============ */
+.card {
+  left: 28px; top: 720px;
+  width: 290px; height: 154px;
+  background: rgba(26, 26, 26, 0.06);
+  border-radius: 12px;
+}
+.card > * { position: absolute; }
+.card-head { left: 14px; top: 14px; display: flex; align-items: center; gap: 4px; }
+.card-head { position: absolute; }
+.card-ico { width: 20px; height: 20px; display: block; }
+.card-title {
+  font-family: "MD Thermochrome", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 1.12px;
+  color: rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+}
+.thumbs { left: 14px; top: 47px; width: 259px; height: 93.3px; z-index: 1; }
+.play   { left: 12px; top: 35px; width: 96.4px; height: 27px; z-index: 2; }
+
+/* ============ Section 2 — Framer-component slot (Polaroid flip card) ============ */
+/* grey rect was design @522,1005 459x236 -> local to section 2 (y-900) => 522,105 */
+.framer-slot {
+  left: 522px; top: 105px;
+  width: 459px; height: 236px;
+}
+/* portrait mount box for the Framer Polaroid component (intrinsic ~340x400) */
+#polaroid-mount {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 200px; height: 236px;
+  transform: translate(-50%, -50%) rotate(-3deg);
+}
+
+.polaroid {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 188px; height: 226px;
+  transform: translate(-50%, -50%) rotate(-4deg);
+  perspective: 1200px;
+  cursor: pointer;
+  outline: none;
+}
+.polaroid-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.polaroid:hover .polaroid-inner,
+.polaroid:focus-within .polaroid-inner { transform: rotateY(180deg); }
+
+.polaroid-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.22), 0 2px 6px rgba(0,0,0,0.12);
+  display: flex; flex-direction: column;
+}
+.polaroid-front { padding: 12px 12px 0; }
+.polaroid-photo {
+  width: 100%; height: 162px;
+  border-radius: 2px;
+  background:
+    radial-gradient(120% 85% at 28% 18%, rgba(255,176,43,0.95) 0%, rgba(255,176,43,0) 58%),
+    linear-gradient(140deg, #2B5CFF 0%, #582AFF 52%, #0d0d0d 100%);
+}
+.polaroid-caption {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Geist Mono", monospace;
+  font-size: 13px; letter-spacing: 0.04em; color: #1a1a1a;
+}
+.polaroid-back {
+  transform: rotateY(180deg);
+  align-items: center; justify-content: center;
+  background: #0d0d0d;
+}
+.polaroid-back-inner { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.pb-k { font-family: "OffBit", monospace; font-weight: 700; font-size: 38px; line-height: 1; color: #2B5CFF; }
+.pb-t { font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #cfcfcf; }
+.pb-h { font-family: "Geist Mono", monospace; font-size: 9px; letter-spacing: 0.08em; color: #666; margin-top: 10px; }
+
+/* =========================================================================
+   v2 LAYOUT RE-SYNC — navbar, agent bar, restructured headline, repositions
+   ========================================================================= */
+/* blue band (now narrower / shifted) */
+.bluerect { left: 175px; top: 357px; width: 1252px; height: 154px; }   /* band shortened */
+
+/* plane track (Spline asset unchanged, just repositioned) */
+.plane-height { left: 1296px; top: 153px; width: 278px; height: 461px; }   /* taller track -> plane moves more */
+
+/* headline — 64px, two lines */
+.hl { font-size: 64px; line-height: 70px; }
+.line1  { left: 201px; top: 206px; }                                   /* DotBold 60% */
+.line2a { left: 101px; top: 279px; font-family: "OffBit", monospace; opacity: 1; }  /* solid Bold */
+.line3  { left: 970px; top: 279px; }                                   /* DotBold 60% */
+.led    { left: 628px; top: 256px; width: 337px; height: 138px; z-index: 5; }
+
+/* pill + chips (new positions / rotations) */
+.pill    { left: 155px;  top: 154px; width: 237px; height: 88px; }
+.c-fire  { left: 485px;  top: 190px; transform: rotate(4.47deg); }
+.c-eye   { left: 1148px; top: 257px; transform: rotate(1.8deg); }
+.c-heart { left: 242px;  top: 343px; transform: rotate(-1.94deg); }
+
+/* navbar (baked, full width) */
+.navbar { position: absolute; left: 12px; top: 12px; width: 1576px; height: 52px; z-index: 20; }
+
+/* agent input bar — positioning handled by the corner-pin rules below */
+.agent  { width: 462.5px; height: auto; }
+
+/* sub copy box — frosted glass (white@70% + 24px bg blur) with layered drop shadows */
+.subbox        { left: 254px; top: 472px; width: 337px; height: 96px; z-index: 4; }   /* repositioned */
+.subbox > *    { position: absolute; }
+.subbox-vec    { left: -21px; top: -4px; width: 379px; height: 173px; }
+.subbox-vec foreignObject > div { border-radius: inherit; }
+
+
+.subbox-plane  {
+  left: 7px; top: 6px; width: 18px; height: 18px;
+  background: #212121; border-radius: 4px;               /* the dark backing field */
+  display: flex; align-items: center; justify-content: center;
+}
+.subbox-plane img { display: block; width: 16px; height: 16px; }
+.subbox .sub   { left: 43px; top: 30px; width: 276px;
+                 text-transform: uppercase; color: #000;
+                 font-family: "MD Thermochrome", sans-serif; font-weight: 600;
+                 font-size: 16px; line-height: 24px; letter-spacing: 1.28px; }
+
+/* ---- corner-pinned cards (live outside the scaled stage, constrained to the
+        hero/100vh corners with a 12px offset, scaled by JS) ---- */
+.card,
+.agent { position: fixed; bottom: 0; z-index: 90; }
+.card  { left: 0; right: auto; top: auto; transform-origin: bottom left;
+         transition: transform 0.4s cubic-bezier(1, -0.01, 1, 0.59); }   /* slide-out easing */
+.agent { right: 0; left: auto; top: auto; transform-origin: bottom right; display: block; width: 453px; height: 112px; }
+
+/* OffBit renders ~3% wider in Chrome than Figma; compress headline lines to match */
+.line1, .line2a, .line3 { transform: scaleX(0.968); transform-origin: left center; }
+
+/* ============ Live agent box + magnetic pills (iOS squircles, smoothing 1.0) ============ */
+.agent2 { background: transparent; overflow: visible; }
+.agent2 > * { position: absolute; }
+/* box-shadow (not filter) so the child's backdrop-filter isn't disabled by a filter ancestor */
+.ag-boxshadow { left: 0; top: 0; width: 453px; height: 112px; border-radius: 18px;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.06), 0 13px 13px rgba(0,0,0,0.05), 0 29px 17px rgba(0,0,0,0.03); }
+.ag-boxbg { position: absolute; inset: 0; background: rgba(33,33,33,0.5);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  -webkit-clip-path: path("M 417 0 c 16.9706 0 25.4558 0 30.7279 5.2721 a 18.0000 18.0000 0 0 1 0.0000 0.0000 c 5.2721 5.2721 5.2721 13.7574 5.2721 30.7279 L 453 76 c 0 16.9706 0 25.4558 -5.2721 30.7279 a 18.0000 18.0000 0 0 1 -0.0000 0.0000 c -5.2721 5.2721 -13.7574 5.2721 -30.7279 5.2721 L 36 112 c -16.9706 0 -25.4558 0 -30.7279 -5.2721 a 18.0000 18.0000 0 0 1 -0.0000 -0.0000 c -5.2721 -5.2721 -5.2721 -13.7574 -5.2721 -30.7279 L 0 36 c 0 -16.9706 0 -25.4558 5.2721 -30.7279 a 18.0000 18.0000 0 0 1 0.0000 -0.0000 c 5.2721 -5.2721 13.7574 -5.2721 30.7279 -5.2721 Z"); clip-path: path("M 417 0 c 16.9706 0 25.4558 0 30.7279 5.2721 a 18.0000 18.0000 0 0 1 0.0000 0.0000 c 5.2721 5.2721 5.2721 13.7574 5.2721 30.7279 L 453 76 c 0 16.9706 0 25.4558 -5.2721 30.7279 a 18.0000 18.0000 0 0 1 -0.0000 0.0000 c -5.2721 5.2721 -13.7574 5.2721 -30.7279 5.2721 L 36 112 c -16.9706 0 -25.4558 0 -30.7279 -5.2721 a 18.0000 18.0000 0 0 1 -0.0000 -0.0000 c -5.2721 -5.2721 -5.2721 -13.7574 -5.2721 -30.7279 L 0 36 c 0 -16.9706 0 -25.4558 5.2721 -30.7279 a 18.0000 18.0000 0 0 1 0.0000 -0.0000 c 5.2721 -5.2721 13.7574 -5.2721 30.7279 -5.2721 Z"); }
+.ag-inputshadow { left: 8px; top: 8px; width: 437px; height: 64px;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.29)) drop-shadow(0 12px 12px rgba(0,0,0,0.26)) drop-shadow(0 26px 16px rgba(0,0,0,0.15)); }
+.ag-input { position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(33,33,33,0.6) 0%, rgba(33,33,33,0.8) 100%);
+  -webkit-clip-path: path("M 413 0 c 11.3137 0 16.9706 0 20.4853 3.5147 a 12.0000 12.0000 0 0 1 0.0000 0.0000 c 3.5147 3.5147 3.5147 9.1716 3.5147 20.4853 L 437 40 c 0 11.3137 0 16.9706 -3.5147 20.4853 a 12.0000 12.0000 0 0 1 -0.0000 0.0000 c -3.5147 3.5147 -9.1716 3.5147 -20.4853 3.5147 L 24 64 c -11.3137 0 -16.9706 0 -20.4853 -3.5147 a 12.0000 12.0000 0 0 1 -0.0000 -0.0000 c -3.5147 -3.5147 -3.5147 -9.1716 -3.5147 -20.4853 L 0 24 c 0 -11.3137 0 -16.9706 3.5147 -20.4853 a 12.0000 12.0000 0 0 1 0.0000 -0.0000 c 3.5147 -3.5147 9.1716 -3.5147 20.4853 -3.5147 Z"); clip-path: path("M 413 0 c 11.3137 0 16.9706 0 20.4853 3.5147 a 12.0000 12.0000 0 0 1 0.0000 0.0000 c 3.5147 3.5147 3.5147 9.1716 3.5147 20.4853 L 437 40 c 0 11.3137 0 16.9706 -3.5147 20.4853 a 12.0000 12.0000 0 0 1 -0.0000 0.0000 c -3.5147 3.5147 -9.1716 3.5147 -20.4853 3.5147 L 24 64 c -11.3137 0 -16.9706 0 -20.4853 -3.5147 a 12.0000 12.0000 0 0 1 -0.0000 -0.0000 c -3.5147 -3.5147 -3.5147 -9.1716 -3.5147 -20.4853 L 0 24 c 0 -11.3137 0 -16.9706 3.5147 -20.4853 a 12.0000 12.0000 0 0 1 0.0000 -0.0000 c 3.5147 -3.5147 9.1716 -3.5147 20.4853 -3.5147 Z"); }
+.ag-ph { position: absolute; left: 13px; top: 23px;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px;
+  color: rgba(255,255,255,0.8); white-space: nowrap; text-shadow: 0 0 4px rgba(255,222,202,0.55); }
+.ag-chatrow { left: 15px; top: 79px; width: 422.3px; height: 26.7px; }
+.agpill { display: flex; align-items: center; gap: 4px; padding: 3px 4px 3px 3px;
+  color: #fff; text-decoration: none; white-space: nowrap;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 12px; line-height: 1; letter-spacing: 0.96px;
+  transition: background-color 0.2s ease; transform-origin: center; will-change: transform; cursor: pointer; }
+.agpill img { width: 15px; height: 15px; display: block; flex: 0 0 auto; }
+.agpill-services { left: -9.5px; top: -15.3px; width: 180px; height: 20px; background: rgba(147,65,218,0.7);
+  -webkit-clip-path: path("M 170 0 c 3.7385 0 5.6077 0 7.0000 0.8038 a 6.0000 6.0000 0 0 1 2.1962 2.1962 c 0.8038 1.3923 0.8038 3.2615 0.8038 7.0000 L 180 10 c 0 3.7385 0 5.6077 -0.8038 7.0000 a 6.0000 6.0000 0 0 1 -2.1962 2.1962 c -1.3923 0.8038 -3.2615 0.8038 -7.0000 0.8038 L 10 20 c -3.7385 0 -5.6077 0 -7.0000 -0.8038 a 6.0000 6.0000 0 0 1 -2.1962 -2.1962 c -0.8038 -1.3923 -0.8038 -3.2615 -0.8038 -7.0000 L 0 10 c 0 -3.7385 0 -5.6077 0.8038 -7.0000 a 6.0000 6.0000 0 0 1 2.1962 -2.1962 c 1.3923 -0.8038 3.2615 -0.8038 7.0000 -0.8038 Z"); clip-path: path("M 170 0 c 3.7385 0 5.6077 0 7.0000 0.8038 a 6.0000 6.0000 0 0 1 2.1962 2.1962 c 0.8038 1.3923 0.8038 3.2615 0.8038 7.0000 L 180 10 c 0 3.7385 0 5.6077 -0.8038 7.0000 a 6.0000 6.0000 0 0 1 -2.1962 2.1962 c -1.3923 0.8038 -3.2615 0.8038 -7.0000 0.8038 L 10 20 c -3.7385 0 -5.6077 0 -7.0000 -0.8038 a 6.0000 6.0000 0 0 1 -2.1962 -2.1962 c -0.8038 -1.3923 -0.8038 -3.2615 -0.8038 -7.0000 L 0 10 c 0 -3.7385 0 -5.6077 0.8038 -7.0000 a 6.0000 6.0000 0 0 1 2.1962 -2.1962 c 1.3923 -0.8038 3.2615 -0.8038 7.0000 -0.8038 Z"); }
+.agpill-fetch    { left: 196.5px; top: -7.5px; width: 194px; height: 20px; background: rgba(65,101,218,0.7);
+  -webkit-clip-path: path("M 184 0 c 3.7385 0 5.6077 0 7.0000 0.8038 a 6.0000 6.0000 0 0 1 2.1962 2.1962 c 0.8038 1.3923 0.8038 3.2615 0.8038 7.0000 L 194 10 c 0 3.7385 0 5.6077 -0.8038 7.0000 a 6.0000 6.0000 0 0 1 -2.1962 2.1962 c -1.3923 0.8038 -3.2615 0.8038 -7.0000 0.8038 L 10 20 c -3.7385 0 -5.6077 0 -7.0000 -0.8038 a 6.0000 6.0000 0 0 1 -2.1962 -2.1962 c -0.8038 -1.3923 -0.8038 -3.2615 -0.8038 -7.0000 L 0 10 c 0 -3.7385 0 -5.6077 0.8038 -7.0000 a 6.0000 6.0000 0 0 1 2.1962 -2.1962 c 1.3923 -0.8038 3.2615 -0.8038 7.0000 -0.8038 Z"); clip-path: path("M 184 0 c 3.7385 0 5.6077 0 7.0000 0.8038 a 6.0000 6.0000 0 0 1 2.1962 2.1962 c 0.8038 1.3923 0.8038 3.2615 0.8038 7.0000 L 194 10 c 0 3.7385 0 5.6077 -0.8038 7.0000 a 6.0000 6.0000 0 0 1 -2.1962 2.1962 c -1.3923 0.8038 -3.2615 0.8038 -7.0000 0.8038 L 10 20 c -3.7385 0 -5.6077 0 -7.0000 -0.8038 a 6.0000 6.0000 0 0 1 -2.1962 -2.1962 c -0.8038 -1.3923 -0.8038 -3.2615 -0.8038 -7.0000 L 0 10 c 0 -3.7385 0 -5.6077 0.8038 -7.0000 a 6.0000 6.0000 0 0 1 2.1962 -2.1962 c 1.3923 -0.8038 3.2615 -0.8038 7.0000 -0.8038 Z"); }
+.agpill-services:hover { background: rgba(147,65,218,1); }
+.agpill-fetch:hover    { background: rgba(65,101,218,1); }
+
+/* ===================== SECTION 2 — proof ===================== */
+@font-face {
+  font-family: "OffBit 101";
+  src: url("fonts/OffBitTrial-101Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: block;
+}
+.below   { background: #ffffff; }
+.stage2  { height: 513px; background: #ffffff; overflow: visible; }
+
+/* postcard flip card (click -> flip to back; hover -> 3D tilt; shadow) */
+.postcard { left: 614px; top: -116px; width: 372px; height: 232px; perspective: 1500px; cursor: pointer; z-index: 2; outline: none; }  /* top -116: overflows the proof top so it peeks into the hero before scroll */
+.postcard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+/* note: no `will-change: transform` here — it pins the 3D layer's raster scale, so the
+   parent stage `scale()` bitmap-upscales it and softens the card. Letting Chrome pick the
+   raster scale keeps it sharp; the flip still composites smoothly during the animation. */
+.pc-face { position: absolute; inset: 0; width: 100%; height: 100%;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.1)) drop-shadow(0 2px 8px rgba(0,0,0,0.05)); }  /* shadow strength 0.1 */
+.pc-back { transform: rotateY(180deg); }
+
+/* "previously worked with" title */
+.pw-title { left: 74px; top: 268px; width: 1452px; height: 40px;
+  font-family: "OffBit 101", monospace; font-weight: 700;
+  font-size: 32px; line-height: 32px; letter-spacing: 0.64px; color: #000; text-align: center; }
+
+/* logo marquee */
+.marquee { left: 74px; top: 309px; width: 1452px; height: 77px; overflow: hidden; }
+.marquee-track { position: absolute; top: 7px; left: 0; display: flex; align-items: center; gap: 76px; width: max-content; height: 64px; padding: 0 38px;
+  animation: pw-marquee 40s linear infinite; mix-blend-mode: exclusion; opacity: 0.7; }  /* strip at 70% */
+@keyframes pw-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.pw-logo { display: block; width: auto; flex: 0 0 auto; }
+.marquee-fade { position: absolute; top: 0; height: 100%; width: 120px; pointer-events: none; z-index: 3; }
+.marquee-fade-l { left: 0;  background: linear-gradient(90deg, #fff 18%, rgba(255,255,255,0)); }
+.marquee-fade-r { right: 0; background: linear-gradient(270deg, #fff 18%, rgba(255,255,255,0)); }
+
+/* ============ SECTION 3 — released work (pinned, scroll-driven) ============ */
+/* tall section; the inner pin sticks to the viewport while scroll scrubs the carousel */
+/* ============ SECTION (between proof & released work) — offerings ============ */
+/* pinned + scaled to fit height; scroll snaps through 4 states (base + 3 row expansions) */
+.offer { position: relative; width: 100%; height: 220vh; background: #ffffff; }
+.of-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.of-stage { position: absolute; top: 0; left: 0; transform-origin: top left;
+  width: 1600px; height: 1166px; }     /* JS centres + scales this to fit the viewport */
+.of-stage > * { position: absolute; }
+
+/* heading — staggered like the hero (dotted "WHAT WE" + solid "OFFER-") */
+.of-h { margin: 0; font-weight: 700; font-size: 64px; line-height: 70px; }
+.of-h1 { left: 569px; top: 40px; font-family: "OffBit Dot", monospace; opacity: 0.6; }
+.of-h2 { left: 736px; top: 104px; font-family: "OffBit", monospace; color: #000; }
+
+/* rows — full-width flex, centred as a group; JS sets translate (shift + push-down) */
+.of-row { left: 0; width: 1600px; height: 164px; display: flex; align-items: center; justify-content: center;
+  gap: 16px; will-change: transform; }
+.of-img { width: 292px; height: 164px; flex: 0 0 auto; border-radius: 8px;
+  box-shadow: 0 14px 38px rgba(0,0,0,0.10), 0 3px 10px rgba(0,0,0,0.06); }
+/* iOS corner smoothing (figma-squircle, r8 sm1) on the image itself; shadow stays on the wrapper */
+.of-img img { width: 100%; height: 100%; object-fit: cover; display: block;
+  clip-path: path("M 276 0 c 7.5425 0 11.3137 0 13.6569 2.3431 a 8 8 0 0 1 0 0 c 2.3431 2.3431 2.3431 6.1144 2.3431 13.6569 L 292 148 c 0 7.5425 0 11.3137 -2.3431 13.6569 a 8 8 0 0 1 0 0 c -2.3431 2.3431 -6.1144 2.3431 -13.6569 2.3431 L 16 164 c -7.5425 0 -11.3137 0 -13.6569 -2.3431 a 8 8 0 0 1 0 0 c -2.3431 -2.3431 -2.3431 -6.1144 -2.3431 -13.6569 L 0 16 c 0 -7.5425 0 -11.3137 2.3431 -13.6569 a 8 8 0 0 1 0 0 c 2.3431 -2.3431 6.1144 -2.3431 13.6569 -2.3431 Z"); }
+.of-text { height: 164px; width: 380px; flex: 0 0 auto; display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start; }     /* sub grows -> centring lifts the heading */
+.of-row.r-imgL .of-ico { align-self: flex-start; }          /* icon sits toward the image */
+.of-row.r-imgR .of-text { align-items: flex-end; text-align: right; }   /* cinematic: right-aligned */
+.of-row.r-imgR .of-ico { align-self: flex-end; }
+.of-ico { width: 28px; height: 28px; display: block; margin-bottom: 6px; }
+.of-head { margin: 0; font-family: "OffBit", monospace; font-weight: 700; font-size: 40px; line-height: 44px;
+  letter-spacing: 0.8px; color: #000; white-space: nowrap; }
+.of-sub { margin: 0; max-height: 0; opacity: 0; overflow: hidden; max-width: 380px; color: #000; text-transform: uppercase;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 21px; letter-spacing: 1.12px; }
+
+/* "create your own" CTA card — matches Figma (#212121, iOS r8, white-8% button, exact arrow) */
+.of-cta { left: 654px; top: 866px; width: 292px; height: 168px; box-sizing: border-box; padding: 16px;
+  background: #212121; color: #fff; display: flex; flex-direction: column; justify-content: space-between;
+  will-change: transform;
+  clip-path: path("M 276 0 c 7.5425 0 11.3137 0 13.6569 2.3431 a 8 8 0 0 1 0 0 c 2.3431 2.3431 2.3431 6.1144 2.3431 13.6569 L 292 152 c 0 7.5425 0 11.3137 -2.3431 13.6569 a 8 8 0 0 1 0 0 c -2.3431 2.3431 -6.1144 2.3431 -13.6569 2.3431 L 16 168 c -7.5425 0 -11.3137 0 -13.6569 -2.3431 a 8 8 0 0 1 0 0 c -2.3431 -2.3431 -2.3431 -6.1144 -2.3431 -13.6569 L 0 16 c 0 -7.5425 0 -11.3137 2.3431 -13.6569 a 8 8 0 0 1 0 0 c 2.3431 -2.3431 6.1144 -2.3431 13.6569 -2.3431 Z"); }
+.of-cta-title { font-family: "OffBit", monospace; font-weight: 700; font-size: 24px; line-height: 26px; }
+.of-cta-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.of-cta-txt { max-width: 175px; opacity: 0.8;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.of-cta-btn { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center; }
+.of-cta-arrow { width: 24px; height: 24px; display: block; }   /* JS rotates this to point at the agent card */
+
+/* ============ SECTION — YC JIT (company search, full-width normal scroll) ============ */
+.ycjit { position: relative; width: 100%; background: #fcfcfc; overflow: hidden; }
+.yc-stage { position: absolute; top: 0; left: 0; transform-origin: top left; width: 1600px; height: 1598px; }
+.yc-stage > * { position: absolute; }
+.ycjit, .yc-stage, .yc-stage * { -webkit-font-smoothing: antialiased; }
+
+/* heading */
+.yc-h { margin: 0; font-family: "OffBit", monospace; font-weight: 700; font-size: 64px; line-height: 70px; color: #000; }
+.yc-h1 { left: 629px; top: 187px; opacity: 0.6; }
+.yc-h2 { left: 588px; top: 251px; }
+/* "part of YC" badge — exact export (orange stroke pill + 2025/2026 vectors + glow). render bounds */
+.yc-badge { left: 860px; top: 229px; width: 124.7px; height: 81.1px; }
+
+/* search bar — iOS-squircle bg (SVG so the CTA glow can overflow without being clipped) */
+.yc-search { left: 406px; top: 345px; width: 787px; height: 94px;
+  background: url("assets/yc/searchbar.svg") no-repeat; background-size: 100% 100%; }
+.yc-search-input { position: absolute; left: 8px; top: 8px; width: 771px; height: 49px;
+  background: url("assets/yc/searchinput.svg") no-repeat; background-size: 100% 100%;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.30)) drop-shadow(0 14px 20px rgba(0,0,0,0.20)); }
+.yc-search-ph { position: absolute; left: 18px; top: 16px; color: #fff; opacity: 0.8;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.yc-cta { position: absolute; left: 578.5px; top: -13px; width: 221px; height: 91px; }
+.yc-search-meta { position: absolute; left: 8px; top: 67px; width: 771px; height: 17px; }
+.yc-search-meta span { position: absolute; color: #fff; opacity: 0.5;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-firms { left: 8px; }
+.yc-powered { right: 8px; }
+
+/* ---- filter rail ---- */
+.yc-filters { left: 0; top: 0; }
+.yc-filter { position: absolute; background-repeat: no-repeat; background-size: 100% 100%;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.06)); }
+.yc-f-batch { left: 304px; top: 501px; width: 240px; height: 241px; background-image: url("assets/yc/union-batch.svg"); }
+.yc-f-cat   { left: 304px; top: 682px; width: 240px; height: 311px; background-image: url("assets/yc/union-cat.svg"); }
+.yc-f-size  { left: 304px; top: 932px; width: 240px; height: 85px;  background-image: url("assets/yc/union-size.svg"); }
+.yc-f-label { position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 4px; color: #000;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-f-label img { width: 14px; height: 14px; }
+.yc-f-size .yc-f-label { top: 13px; gap: 6px; font-weight: 500; }
+.yc-size-val { font-weight: 500; }   /* sits right after "COMPANY SIZE" via the flex gap */
+.yc-f-body { position: absolute; left: 12px; opacity: 0.8; }
+.yc-batch-list { top: 47px; width: 216px; display: flex; flex-direction: column; gap: 8px; }
+.yc-batch-row { display: flex; justify-content: space-between; align-items: center; height: 18px; color: #000;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-batch-n { background: rgba(33,33,33,0.2); border-radius: 4px; padding: 2px 4px; font-size: 12px; line-height: 14px; letter-spacing: 0.96px; }
+.yc-cat-list { top: 47px; width: 216px; display: flex; flex-direction: column; gap: 8px; color: #000;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-size-val { white-space: nowrap; }
+
+/* company-size slider (track 174) */
+.yc-slider { top: 48px; left: 12px; width: 216px; height: 25px; opacity: 1; }
+.yc-slider-track { position: absolute; left: 0; top: 10px; width: 174px; height: 5px; border-radius: 2px; background: rgba(33,33,33,0.12); cursor: pointer; }
+.yc-slider-fill { position: absolute; left: 0; top: 0; height: 5px; width: 81px; border-radius: 2px; background: rgba(33,33,33,0.8); }
+.yc-slider-knob { position: absolute; right: -10px; top: -7.5px; width: 20px; height: 20px; border-radius: 4px; background: #212121;
+  display: flex; align-items: center; justify-content: center; cursor: grab; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.yc-slider-knob:active { cursor: grabbing; }
+.yc-slider-knob img { width: 16px; height: 16px; }
+.yc-slider-box { position: absolute; left: 184px; top: 0; width: 32px; height: 25px; box-sizing: border-box; text-align: center;
+  border: 1px solid rgba(33,33,33,0.12); border-radius: 4px; background: transparent; padding: 0 4px; outline: none;
+  color: #000; font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 1.12px; }
+
+/* results count — "5", "12", "LANESURF" are semibold; the rest is w500 @ 70% */
+.yc-results { left: 969px; top: 501px; color: #000;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-results .yc-rt { opacity: 0.7; }
+.yc-results b { font-weight: 600; }
+
+/* ---- company list: one card (iOS squircle + 0.12 stroke + 8px pad), rows split by dashed dividers ---- */
+.yc-list { left: 556px; top: 526px; width: 740px; height: 836px; box-sizing: border-box; padding: 8px;
+  background: url("assets/yc/listcard.svg") no-repeat; background-size: 100% 100%; display: flex; flex-direction: column; }
+.yc-card { position: relative; width: 724px; height: 164px; border-bottom: 1px dashed rgba(33,33,33,0.12); }
+.yc-card:last-child { border-bottom: none; }
+.yc-card > * { position: absolute; }
+.yc-logo { left: 20px; top: 27px; width: 24px; height: 24px; border-radius: 4px; overflow: hidden; background: rgba(33,33,33,0.5); }
+.yc-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.yc-logo-gen { background: #212121; display: flex; align-items: center; justify-content: center; color: #fff;
+  font-family: "OffBit", monospace; font-weight: 700; font-size: 15px; line-height: 1; }
+.yc-name { left: 56px; top: 25px; margin: 0; color: #000; font-family: "OffBit", monospace; font-weight: 700; font-size: 32px; line-height: 32px; letter-spacing: 0.64px; }
+.yc-tags { left: 20px; top: 63px; display: flex; gap: 6px; }
+.yc-ctag { border-radius: 4px; padding: 2px 6px; height: 21px; box-sizing: border-box;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-ctag-batch { background: rgba(237,89,26,0.12); color: #ed591a; }
+.yc-ctag-cat { background: rgba(33,33,33,0.12); color: #000; }
+.yc-scores { left: 20px; top: 104px; display: flex; gap: 40px; }
+.yc-score-l { color: #000; font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-score-row { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.yc-score-n { font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.yc-score-bar { width: 80px; height: 4px; border-radius: 2px; background: rgba(33,33,33,0.12); overflow: hidden; }
+.yc-score-bar i { display: block; height: 4px; border-radius: 2px; }
+
+/* view report — exact component vectors; hover -> Selected=True (crossfade + lift) with the easing curve */
+.yc-vr { left: 606px; top: 20px; width: 98px; height: 25px; cursor: pointer;
+  transition: transform 1s cubic-bezier(0, 0.98, 0.05, 1); }
+.yc-vr:hover { transform: translateY(-1px); }
+.yc-vr img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;
+  transition: opacity 1s cubic-bezier(0, 0.98, 0.05, 1); }
+.yc-vr-off { width: 114.5px; height: 31px; }
+.yc-vr-on { width: 130.5px; height: 63px; opacity: 0; }
+.yc-vr:hover .yc-vr-off, .yc-vr.is-active .yc-vr-off { opacity: 0; }
+.yc-vr:hover .yc-vr-on, .yc-vr.is-active .yc-vr-on { opacity: 1; }
+
+/* pagination — centred under the list; all full-black, every page outlined (0.12); active = white + chevron */
+.yc-pag { left: 815px; top: 1380px; width: 222px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.yc-pag-prev, .yc-pag-next { color: #000; cursor: pointer; white-space: nowrap;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 21px; letter-spacing: 1.26px; }
+.yc-pag-nums { display: flex; gap: 6px; margin: 0 12px; }
+.yc-page { width: 32px; height: 32px; border: 1px solid transparent; background: transparent; border-radius: 8px; cursor: pointer; color: #000; opacity: 0.7;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 18px; letter-spacing: 1.26px; }
+.yc-page.is-active { background: #fff; border-color: rgba(33,33,33,0.12); opacity: 1; }   /* deselected = no fill/stroke, dimmed */
+.yc-page-chev { width: 14px; height: 5px; display: none; }
+.yc-page.is-active .yc-page-chev { display: block; }
+
+.rwork { position: relative; width: 100%; height: 250vh; background: #ffffff; }  /* 5 projects -> ~50vh of scroll per snap region */
+.rw-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.rw-stage { position: absolute; top: 0; left: 0; transform-origin: top left;
+  width: 1600px; height: 900px; background: #ffffff; }
+.rw-stage > * { position: absolute; }
+
+/* --- left project list + moving orange selection line --- */
+.rw-list { left: 12px; top: 380px; width: 1576px; height: 113px; }
+.rw-list > * { position: absolute; }
+.rw-item { left: 0; height: 17px; line-height: 17px; color: #000; opacity: 0.7;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 1.12px;
+  white-space: nowrap; transition: opacity .25s ease, transform .25s ease; }
+.rw-item.sel { opacity: 1; font-weight: 600; transform: translateX(14px); }   /* indents to clear the arrow */
+.rw-line { left: 0; width: 1576px; height: 2px; display: flex; align-items: center; }
+  /* no top-transition: the line is driven continuously by the scroll-scrubbed focus, so it
+     already glides; a transition here would only lag behind the scroll. */
+.rw-arrow { position: absolute; left: 0; top: -6px; width: 0; height: 0;
+  border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 12px solid #FF5638; }
+.rw-seg { height: 2px; }
+.rw-seg-l { width: 243px; background: #FF320E; }
+.rw-seg-mid { flex: 1; height: 0; border-top: 2px dashed #FF5638; opacity: 0.5; align-self: center; }
+.rw-seg-r { width: 97px; background: #FF320E; }
+
+/* --- vertical video carousel --- */
+.rw-screen { left: 320px; top: 256px; width: 604px; height: 340px; }   /* big-card box; cards overflow (visible) */
+.rw-card { position: absolute; inset: 0; transform-origin: center center;
+  border-radius: 14px; overflow: hidden; background: #efefef; will-change: transform, opacity;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.10), 0 4px 14px rgba(0,0,0,0.06); }
+.rw-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* --- info pod --- */
+.rw-pod { left: 1064px; top: 256px; width: 430px; height: 360px; }
+.rw-pod > * { position: absolute; }
+.rw-pod-icon { top: 0; left: 0; width: 32px; height: 32px; border-radius: 8px; background: #2b2b2b;
+  transition: background .3s ease; }
+.rw-pod-title { top: 44px; left: 0; margin: 0; color: #000;
+  font-family: "OffBit", monospace; font-weight: 700; font-size: 64px; line-height: 70px; letter-spacing: 0; }
+.rw-pod-sub { top: 114px; left: 0; margin: 0; width: 420px; color: #000; opacity: 0.7;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 21px; letter-spacing: 1.12px; }
+.rw-stats { top: 188px; left: 0; width: 430px; height: 80px; }
+.rw-stat { position: absolute; top: 0; }
+.rw-stat-n { display: block; color: #000;
+  font-family: "OffBit", monospace; font-weight: 700; font-size: 32px; line-height: 32px; letter-spacing: 0.64px; }
+.rw-stat-l { display: block; margin-top: 6px; color: #000; opacity: 0.7;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
+.rw-nav { top: 318px; left: 0; display: flex; align-items: baseline; gap: 11px; color: #000; opacity: 0.7;
+  font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 1.26px; cursor: default; }
+.rw-prev, .rw-next { cursor: pointer; }
+.rw-slash { font-size: 16px; letter-spacing: 1.44px; }

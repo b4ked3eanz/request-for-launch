@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request for Launch — cnvrt labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Nunito:wght@800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================== SECTION 1 — hero (100vh) ===================== -->
+  <section class="hero" id="hero">
+    <main class="stage" id="stage">
+
+      <!-- blue gradient band (behind everything) + noise + parallax clouds -->
+      <div class="bluerect"><div class="band-noise"></div></div>
+
+      <!-- plane height track (Spline asset untouched — just repositioned) -->
+      <div class="plane-height">
+        <div class="spline-slot">
+          <canvas id="paperplane-canvas"></canvas>
+        </div>
+      </div>
+
+      <!-- headline (2 lines, 64px; line 2 has the LED inline) -->
+      <h1 class="hl line1">WE DONT PROMISE MUCH</h1>
+      <h1 class="hl line2a">BUT IT&rsquo;LL BE YOUR</h1>
+      <img class="led" src="assets/v2/led.png" alt="COOLEST" />
+      <h1 class="hl line3">LAUNCH SO FAR</h1>
+
+      <!-- floating pill (vector — exact union gradient #2B5CFF -> #932CE2) -->
+      <img class="pill" src="assets/pill.svg" alt="1800-LAUNCH-NOW!!!" />
+
+      <!-- live counter chips: roll up + auto-tick -->
+      <div class="chip2 c-fire" data-start="44768" data-min="2" data-max="34">
+        <img class="ci ci-fire" src="assets/ico-fire.png" alt="" />
+        <span class="roller" aria-label="44,768"></span>
+      </div>
+      <div class="chip2 c-eye" data-start="42456" data-min="6" data-max="70">
+        <img class="ci ci-eye" src="assets/ico-eye.png" alt="" />
+        <span class="roller" aria-label="42,456"></span>
+      </div>
+      <div class="chip2 c-heart" data-start="4789" data-min="1" data-max="9">
+        <img class="ci ci-heart" src="assets/ico-heart.png" alt="" />
+        <span class="roller" aria-label="4,789"></span>
+      </div>
+
+      <!-- sub copy box (frosted glass: white@70% + bg blur + layered shadows) + plane glyph -->
+      <div class="subbox">
+        <svg class="subbox-vec" width="379" height="173" viewBox="0 0 379 173" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-3" y="-20" width="385" height="193"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(12px);clip-path:url(#bgblur_0_210_1315_clip_path);height:100%;width:100%"></div></foreignObject><g filter="url(#filter0_dddd_210_1315)" data-figma-bg-blur-radius="24">
+<path d="M47 4C50.3137 4 53 6.68629 53 10C53 13.3137 55.6863 16 59 16H338C347.428 16 352.142 16 355.071 18.9289C358 21.8579 358 26.5719 358 36V80C358 89.4281 358 94.1421 355.071 97.0711C352.142 100 347.428 100 338 100H66C56.5719 100 51.8579 100 48.9289 97.0711C46 94.1421 46 89.4281 46 80V46.5C46 44.1767 46 43.0151 45.8079 42.0491C45.0188 38.0822 41.9178 34.9812 37.9509 34.1921C36.9849 34 35.8233 34 33.5 34C31.1767 34 30.0151 34 29.0491 33.8079C25.0822 33.0188 21.9812 29.9178 21.1921 25.9509C21 24.9849 21 23.8233 21 21.5V19C21 14.3406 21 12.0109 21.7612 10.1732C22.7761 7.72288 24.7229 5.77614 27.1732 4.7612C29.0109 4 31.3406 4 36 4H47Z" fill="white" fill-opacity="0.7"/>
+</g>
+<defs>
+<filter id="filter0_dddd_210_1315" x="-3" y="-20" width="385" height="193" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3"/>
+<feGaussianBlur stdDeviation="3.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_210_1315"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="13"/>
+<feGaussianBlur stdDeviation="6.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow_210_1315" result="effect2_dropShadow_210_1315"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="29"/>
+<feGaussianBlur stdDeviation="8.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0"/>
+<feBlend mode="normal" in2="effect2_dropShadow_210_1315" result="effect3_dropShadow_210_1315"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="52"/>
+<feGaussianBlur stdDeviation="10.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0"/>
+<feBlend mode="normal" in2="effect3_dropShadow_210_1315" result="effect4_dropShadow_210_1315"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect4_dropShadow_210_1315" result="shape"/>
+</filter>
+<clipPath id="bgblur_0_210_1315_clip_path" transform="translate(3 20)"><path d="M47 4C50.3137 4 53 6.68629 53 10C53 13.3137 55.6863 16 59 16H338C347.428 16 352.142 16 355.071 18.9289C358 21.8579 358 26.5719 358 36V80C358 89.4281 358 94.1421 355.071 97.0711C352.142 100 347.428 100 338 100H66C56.5719 100 51.8579 100 48.9289 97.0711C46 94.1421 46 89.4281 46 80V46.5C46 44.1767 46 43.0151 45.8079 42.0491C45.0188 38.0822 41.9178 34.9812 37.9509 34.1921C36.9849 34 35.8233 34 33.5 34C31.1767 34 30.0151 34 29.0491 33.8079C25.0822 33.0188 21.9812 29.9178 21.1921 25.9509C21 24.9849 21 23.8233 21 21.5V19C21 14.3406 21 12.0109 21.7612 10.1732C22.7761 7.72288 24.7229 5.77614 27.1732 4.7612C29.0109 4 31.3406 4 36 4H47Z"/>
+</clipPath></defs>
+</svg>
+        <div class="subbox-plane"><img src="assets/v2/sub-plane.svg" alt="" /></div>
+        <p class="sub">launch videos for yc-backed companies creating the future.</p>
+      </div>
+
+      <!-- navbar (baked: pixel logo + FROM CNVRTLABS + nav pill) -->
+      <img class="navbar" src="assets/v2/navbar.png" alt="REQ FOR LAUNCH — navigation" />
+
+    </main>
+  </section>
+
+  <!-- ===================== SECTION 2 — scroll content ===================== -->
+  <section class="below" id="below">
+        <div class="stage stage2" id="stage2">
+
+      <!-- postcard flip card: front -> back on click, hover tilt, shadow -->
+      <div class="postcard" id="postcard" tabindex="0" aria-label="Postcard, click to flip">
+        <div class="postcard-inner">
+          <img class="pc-face pc-front" src="assets/proof/postcard-front.png" alt="Request for launch postcard" />
+          <img class="pc-face pc-back" src="assets/proof/postcard-back.png" alt="An AI-native launch-video studio" />
+        </div>
+      </div>
+
+      <!-- previously worked with + logo marquee -->
+      <h2 class="pw-title">PREVIOUSLY WORKED WITH:</h2>
+      <div class="marquee">
+        <div class="marquee-track"><img class="pw-logo" src="assets/proof/logos/logo00.png" style="height:16px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo01.png" style="height:30px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo02.png" style="height:36px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo03.png" style="height:21px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo04.png" style="height:18px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo05.png" style="height:26px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo06.png" style="height:16px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo07.png" style="height:14px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo08.png" style="height:18px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo09.png" style="height:33px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo10.png" style="height:21px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo11.png" style="height:39px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo12.png" style="height:15px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo00.png" style="height:16px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo01.png" style="height:30px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo02.png" style="height:36px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo03.png" style="height:21px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo04.png" style="height:18px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo05.png" style="height:26px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo06.png" style="height:16px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo07.png" style="height:14px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo08.png" style="height:18px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo09.png" style="height:33px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo10.png" style="height:21px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo11.png" style="height:39px" alt="" /><img class="pw-logo" src="assets/proof/logos/logo12.png" style="height:15px" alt="" /></div>
+        <div class="marquee-fade marquee-fade-l"></div>
+        <div class="marquee-fade marquee-fade-r"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ===================== SECTION — offerings (pinned, scroll-snapped) ===================== -->
+  <section class="offer" id="offer">
+    <div class="of-pin">
+      <div class="of-stage" id="ofstage">
+
+        <h2 class="of-h of-h1">WHAT WE</h2>
+        <h2 class="of-h of-h2">OFFER-</h2>
+
+        <div class="of-row r-imgL" data-i="0" style="top:254px">
+          <div class="of-img"><img src="assets/offer/motion.png" alt="" /></div>
+          <div class="of-text">
+            <img class="of-ico" src="assets/offer/ico-motion.png" alt="" />
+            <h3 class="of-head">MOTION GRAPHIC</h3>
+            <p class="of-sub">Slick, animated, and built to explain the thing fast &mdash; perfect when the product lives on a screen.</p>
+          </div>
+        </div>
+
+        <div class="of-row r-imgR" data-i="1" style="top:458px">
+          <div class="of-text">
+            <img class="of-ico" src="assets/offer/ico-cinematic.png" alt="" />
+            <h3 class="of-head">CINEMATIC</h3>
+            <p class="of-sub">Real footage, real mood. The kind of film that makes a launch feel like an event.</p>
+          </div>
+          <div class="of-img"><img src="assets/offer/cinematic.png" alt="" /></div>
+        </div>
+
+        <div class="of-row r-imgL" data-i="2" style="top:662px">
+          <div class="of-img"><img src="assets/offer/founder.png" alt="" /></div>
+          <div class="of-text">
+            <img class="of-ico" src="assets/offer/ico-founder.png" alt="" />
+            <h3 class="of-head">FOUNDER LED</h3>
+            <p class="of-sub">You, on camera, talking straight to the people. Trust you can&rsquo;t fake or animate.</p>
+          </div>
+        </div>
+
+        <div class="of-cta" data-i="3" style="top:866px">
+          <div class="of-cta-title">CREATE YOUR OWN!</div>
+          <div class="of-cta-row">
+            <span class="of-cta-txt">CHAT WITH OUR AGENT TO LEARN MORE</span>
+            <span class="of-cta-btn"><img class="of-cta-arrow" id="ofarrow" src="assets/offer/arrow.svg" alt="" /></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION — YC JIT (company search, full-width scroll) ===================== -->
+  <section class="ycjit" id="ycjit">
+    <div class="yc-stage" id="ycstage">
+
+      <!-- heading + "part of YC" badge -->
+      <h2 class="yc-h yc-h1">HOW WE CAN</h2>
+      <h2 class="yc-h yc-h2">HELP YOU</h2>
+      <img class="yc-badge" src="assets/yc/badge.png" alt="If you're part of YC" />
+
+      <!-- search bar -->
+      <div class="yc-search">
+        <div class="yc-search-input">
+          <span class="yc-search-ph">&gt;&gt;ENTER YOUR COMPANY&rsquo;S NAME...</span>
+        </div>
+        <img class="yc-cta" src="assets/yc/cta-claim.png" alt="Claim your company" />
+        <div class="yc-search-meta">
+          <span class="yc-firms">YC FIRMS 25 - 26</span>
+          <span class="yc-powered">POWERED BY CNVRTOPSV.01 &#127803;</span>
+        </div>
+      </div>
+
+      <!-- left filter rail -->
+      <div class="yc-filters">
+        <div class="yc-filter yc-f-batch">
+          <span class="yc-f-label"><img src="assets/yc/ico-folder.svg" alt="" />BATCH</span>
+          <div class="yc-f-body yc-batch-list">
+            <div class="yc-batch-row"><span>P26</span><span class="yc-batch-n">48</span></div>
+            <div class="yc-batch-row"><span>S26</span><span class="yc-batch-n">52</span></div>
+            <div class="yc-batch-row"><span>F25</span><span class="yc-batch-n">67</span></div>
+            <div class="yc-batch-row"><span>W25</span><span class="yc-batch-n">38</span></div>
+            <div class="yc-batch-row"><span>S25</span><span class="yc-batch-n">35</span></div>
+          </div>
+        </div>
+        <div class="yc-filter yc-f-cat">
+          <span class="yc-f-label"><img src="assets/yc/ico-board.svg" alt="" />CATEGORY</span>
+          <div class="yc-f-body yc-cat-list">
+            <span>AI / ML</span><span>SAAS</span><span>DEVELOPER TOOLS</span><span>HEALTH</span>
+            <span>CONSUMER</span><span>LOGISTICS</span><span>CLIMATE</span><span>FINTECH</span>
+          </div>
+        </div>
+        <div class="yc-filter yc-f-size">
+          <span class="yc-f-label"><img src="assets/yc/ico-plant.svg" alt="" />COMPANY SIZE<span class="yc-size-val">1-250</span></span>
+          <div class="yc-f-body yc-slider" id="ycslider">
+            <div class="yc-slider-track"><div class="yc-slider-fill" id="ycfill"><div class="yc-slider-knob" id="ycknob"><img src="assets/yc/ico-resize.svg" alt="" /></div></div></div>
+            <input class="yc-slider-box" id="ycsizebox" value="1-250" inputmode="text" spellcheck="false" />
+          </div>
+        </div>
+      </div>
+
+      <!-- results count (mixed weights: numbers + name are semibold, rest is 70%) -->
+      <div class="yc-results"><span class="yc-rt">SHOWING </span><b>5</b><span class="yc-rt"> OUT OF </span><b>12</b><span class="yc-rt"> RESULTS FOR </span><b>&ldquo;LANESURF&rdquo;</b></div>
+
+      <!-- company list (cards built by yc.js) -->
+      <div class="yc-list" id="yclist"></div>
+
+      <!-- pagination -->
+      <div class="yc-pag" id="ycpag">
+        <span class="yc-pag-prev">&lt; PREV</span>
+        <div class="yc-pag-nums">
+          <button class="yc-page is-active" data-p="1">1<img class="yc-page-chev" src="assets/yc/ico-chevron.svg" alt="" /></button>
+          <button class="yc-page" data-p="2">2</button>
+          <button class="yc-page" data-p="3">3</button>
+        </div>
+        <span class="yc-pag-next">NEXT &gt;</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 3 — released work (pinned, scroll-driven) ===================== -->
+  <section class="rwork" id="rwork">
+    <div class="rw-pin">
+      <div class="stage rw-stage" id="rwstage">
+
+        <!-- left project list + moving orange selection line -->
+        <div class="rw-list" id="rwlist">
+          <div class="rw-item sel" data-i="0" style="top:0px">ABACOR</div>
+          <div class="rw-item" data-i="1" style="top:21px">LANESURF</div>
+          <div class="rw-item" data-i="2" style="top:42px">MOCHATRADE</div>
+          <div class="rw-item" data-i="3" style="top:63px">DRACONIC</div>
+          <div class="rw-item" data-i="4" style="top:84px">ION</div>
+          <div class="rw-line" id="rwline">
+            <span class="rw-arrow"></span>
+            <span class="rw-seg rw-seg-l"></span>
+            <span class="rw-seg rw-seg-mid"></span>
+            <span class="rw-seg rw-seg-r"></span>
+          </div>
+        </div>
+
+        <!-- vertical video carousel -->
+        <div class="rw-screen" id="rwscreen">
+          <div class="rw-card" data-i="0"><img src="assets/work/card-abacor.png" alt="Abacor launch video" /></div>
+          <div class="rw-card" data-i="1"><img src="assets/work/card-lanesurf.png" alt="Lanesurf launch video" /></div>
+          <div class="rw-card" data-i="2"><img src="assets/work/card-mochatrade.png" alt="Mochatrade launch video" /></div>
+          <div class="rw-card" data-i="3"><img src="assets/work/card-draconic.png" alt="Draconic launch video" /></div>
+          <div class="rw-card" data-i="4"><img src="assets/work/card-ion.png" alt="Ion launch video" /></div>
+        </div>
+
+        <!-- info pod -->
+        <div class="rw-pod">
+          <div class="rw-pod-icon" id="rwicon"></div>
+          <h3 class="rw-pod-title" id="rwtitle">ABACOR</h3>
+          <p class="rw-pod-sub">A CINEMATIC LAUNCH VIDEO SHOWCASING XY XY XY</p>
+          <div class="rw-stats">
+            <div class="rw-stat" style="left:0px;width:165px"><span class="rw-stat-n">1.4M</span><span class="rw-stat-l">IMPRESSIONS ACROSS LAUNCH WEEK</span></div>
+            <div class="rw-stat" style="left:180px;width:120px"><span class="rw-stat-n">3.2x</span><span class="rw-stat-l">SOCIAL REACH</span></div>
+            <div class="rw-stat" style="left:307px;width:120px"><span class="rw-stat-n">+180%</span><span class="rw-stat-l">CLICK-THROUGH TO PRODUCT</span></div>
+          </div>
+          <div class="rw-nav"><span class="rw-prev">&lt; PREV</span><span class="rw-slash">/</span><span class="rw-next">NEXT &gt;</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- sticky corner cards (fixed to viewport): agent stays; left card slides out past the scroll breaker -->
+  <section class="card">
+    <header class="card-head">
+      <img class="card-ico" src="assets/ico-card.png" alt="" />
+      <span class="card-title">CHECK OUT OUR NEWEST RELEASES!!</span>
+    </header>
+    <img class="thumbs" src="assets/thumbnails.png" alt="latest releases" />
+    <img class="play" src="assets/play.png" alt="play" />
+  </section>
+
+  <div class="agent agent2">
+    <div class="ag-boxshadow"><div class="ag-boxbg"></div></div>
+    <div class="ag-inputshadow"><div class="ag-input"><span class="ag-ph">&gt;&gt;ENTER YOUR COMPANY NAME OR QUERY...</span></div></div>
+    <img class="ag-chatrow" src="assets/v2/agent-chatrow.png" alt="Chat with our agent" />
+    <a class="agpill agpill-services" href="#" data-rot="-4.92">
+      <img src="assets/v2/pill-ico-menu.svg" alt="" /><span>WHAT SERVICES CAN I GET?</span>
+    </a>
+    <a class="agpill agpill-fetch" href="#" data-rot="3.15">
+      <img src="assets/v2/pill-ico-file.svg" alt="" /><span>FETCH MY COMPANY&rsquo;S REPORT</span>
+    </a>
+  </div>
+
+  <script>
+    // Width-based scale: each 1600-wide stage fills the viewport width.
+    // Hero is 100vh; on a 16:9 screen the 900-tall design lands exactly at the fold.
+    const stages = [
+      { el: document.getElementById('stage'),  h: 900 },
+      { el: document.getElementById('stage2'), h: 513 },  // proof height (overflows up by 116 for the postcard peek)
+      { el: document.getElementById('rwstage'), h: 900 },  // section 3 — released work (pinned)
+      { el: document.getElementById('ycstage'), h: 1598 }, // YC JIT (full-width normal scroll)
+    ];
+    const below = document.getElementById('below');
+    const ycjit = document.getElementById('ycjit');
+    // sticky corner cards (position: fixed). Agent stays bottom-right the whole site;
+    // the left card slides off-screen left once you scroll past the "scroll breaker" (hero y=601).
+    const cornerCard = document.querySelector('.card');
+    const cornerAgent = document.querySelector('.agent');
+    let leftSlid = false;
+    function placeCards(s) {
+      if (cornerAgent) cornerAgent.style.transform = `translate(${-12 * s}px, ${-12 * s}px) scale(${s})`;
+      if (cornerCard) {
+        const x = leftSlid ? -(290 + 60) : 12;   // design px; off-screen left when slid
+        cornerCard.style.transform = `translate(${x * s}px, ${-12 * s}px) scale(${s})`;
+      }
+    }
+    function fit() {
+      const s = window.innerWidth / 1600;
+      stages.forEach(o => { o.el.style.transform = `scale(${s})`; });
+      below.style.height = (513 * s) + 'px';   // give the scaled section its real height
+      if (ycjit) ycjit.style.height = (1598 * s) + 'px';   // YC JIT scaled height
+      placeCards(s);
+    }
+    const EASE_OUT = 'cubic-bezier(1, -0.01, 1, 0.59)';   // slide off-screen
+    const EASE_IN  = 'cubic-bezier(0, 0.41, 0, 1.01)';    // exact opposite (time-reversed) on the way back
+    function onScroll() {
+      const s = window.innerWidth / 1600;
+      const navBottom = 64 * s;                 // bottom of the top nav (y12 + 52). Slide once it leaves the top.
+      const slid = window.scrollY >= navBottom;
+      if (slid !== leftSlid) {
+        leftSlid = slid;
+        if (cornerCard) cornerCard.style.transitionTimingFunction = slid ? EASE_OUT : EASE_IN;
+        placeCards(s);
+      }
+    }
+    fit();
+    onScroll();
+    window.addEventListener('resize', fit);
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+  <script src="counters.js"></script>
+  <script src="component/plane-track.js"></script>
+  <script src="clouds.js"></script>
+  <script src="agent-pills.js"></script>
+  <script src="postcard.js"></script>
+  <script src="offerings.js"></script>
+  <script src="yc.js"></script>
+  <script src="releasedwork.js"></script>
+
+  <!-- Lazy-load the Spline runtime + paper-airplane interactions when near viewport -->
+  <script>
+    (function () {
+      const host = document.querySelector('.spline-slot');
+      if (!host) return;
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          import('./component/paperplane.js');
+          io.disconnect();
+        }
+      }, { rootMargin: '400px' });
+      io.observe(host);
+    })();
+  </script>
+</body>
+</html>

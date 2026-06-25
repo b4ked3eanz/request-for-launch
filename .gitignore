@@ -1,0 +1,8 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# dependencies / build (none committed, but just in case)
+node_modules/
