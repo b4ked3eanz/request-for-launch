@@ -582,7 +582,7 @@ img.cloud {
 .yc-batch-n { background: rgba(33,33,33,0.2); border-radius: 4px; padding: 2px 4px; font-size: 12px; line-height: 14px; letter-spacing: 0.96px; }
 .yc-cat-list { top: 47px; width: 216px; display: flex; flex-direction: column; gap: 8px; color: #000;
   font-family: "MD Thermochrome", sans-serif; font-weight: 500; font-size: 14px; line-height: 17px; letter-spacing: 1.12px; }
-.yc-size-val { white-space: nowrap; }
+.yc-size-val { white-space: nowrap; opacity: 0.5; }
 
 /* company-size slider (track 174) */
 .yc-slider { top: 48px; left: 12px; width: 216px; height: 25px; opacity: 1; }
