@@ -673,6 +673,12 @@ img.cloud {
 
 /* --- vertical video carousel --- */
 .rw-screen { left: 320px; top: 256px; width: 604px; height: 340px; }   /* big-card box; cards overflow (visible) */
+.rw-screen, .rw-screen * { cursor: none; }   /* swapped for the custom PLAY cursor */
+.rw-cursor { position: fixed; left: 0; top: 0; z-index: 300; pointer-events: none; opacity: 0;
+  margin-left: 16px; margin-top: 10px; transform-origin: 10px 10px;
+  will-change: transform, opacity; transition: opacity .2s ease; }
+.rw-cursor.on { opacity: 1; }
+.rw-cursor img { display: block; width: 94px; height: 27px; }
 .rw-card { position: absolute; inset: 0; transform-origin: center center;
   border-radius: 14px; overflow: hidden; background: #efefef; will-change: transform, opacity;
   box-shadow: 0 18px 50px rgba(0,0,0,0.10), 0 4px 14px rgba(0,0,0,0.06); }
