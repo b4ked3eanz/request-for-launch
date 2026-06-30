@@ -703,3 +703,16 @@ img.cloud {
   font-family: "MD Thermochrome", sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 1.26px; cursor: default; }
 .rw-prev, .rw-next { cursor: pointer; }
 .rw-slash { font-size: 16px; letter-spacing: 1.44px; }
+
+/* ===== footer / CTA (last section) ============================================ */
+.footer   { position: relative; width: 100%; background: #ffffff; overflow: hidden; }
+.ft-stage { position: absolute; top: 0; left: 0; transform-origin: top left; width: 1600px; height: 900px; }
+.ft-stage > * { position: absolute; }
+.ft-stage.grab { cursor: none; }   /* the phone *is* the cursor while you hover the CTA */
+
+.ft-band    { left: 0; top: 498px; width: 1603px; height: 880px; pointer-events: none; user-select: none; }
+.ft-base    { left: 1551px; top: 357px; width: 49px;  height: 115px; pointer-events: none; user-select: none; z-index: 4; }
+.ft-handset { left: 1508px; top: 333px; width: 102px; height: 170px; pointer-events: none; user-select: none; z-index: 2;
+  transform-origin: 50% 50%; will-change: transform;
+  filter: drop-shadow(0 6px 9px rgba(0,0,0,0)); transition: filter .25s ease; }
+.ft-handset.lift { filter: drop-shadow(0 20px 24px rgba(0,0,0,0.28)); }

@@ -279,6 +279,16 @@
   </section>
 
 
+  <!-- ===================== SECTION — footer / CTA (last) ===================== -->
+  <section class="footer" id="footer">
+    <div class="stage ft-stage" id="ftstage">
+      <img class="ft-band" src="assets/footer/band.svg" alt="" />
+      <img class="ft-base" src="assets/footer/base.png" alt="" />
+      <img class="ft-handset" id="fthandset" src="assets/footer/handset.png" alt="Give us a call" />
+    </div>
+  </section>
+
+
   <!-- sticky corner cards (fixed to viewport): agent stays; left card slides out past the scroll breaker -->
   <section class="card">
     <header class="card-head">
@@ -309,9 +319,11 @@
       { el: document.getElementById('stage2'), h: 513 },  // proof height (overflows up by 116 for the postcard peek)
       { el: document.getElementById('rwstage'), h: 900 },  // section 3 — released work (pinned)
       { el: document.getElementById('ycstage'), h: 1598 }, // YC JIT (full-width normal scroll)
+      { el: document.getElementById('ftstage'), h: 900 },  // footer / CTA (last section)
     ];
     const below = document.getElementById('below');
     const ycjit = document.getElementById('ycjit');
+    const footer = document.getElementById('footer');
     // sticky corner cards (position: fixed). Agent stays bottom-right the whole site;
     // the left card slides off-screen left once you scroll past the "scroll breaker" (hero y=601).
     const cornerCard = document.querySelector('.card');
@@ -329,6 +341,7 @@
       stages.forEach(o => { o.el.style.transform = `scale(${s})`; });
       below.style.height = (513 * s) + 'px';   // give the scaled section its real height
       if (ycjit) ycjit.style.height = (1598 * s) + 'px';   // YC JIT scaled height
+      if (footer) footer.style.height = (900 * s) + 'px';   // footer / CTA scaled height
       placeCards(s);
     }
     const EASE_OUT = 'cubic-bezier(1, -0.01, 1, 0.59)';   // slide off-screen
@@ -357,6 +370,7 @@
   <script src="yc.js"></script>
   <script src="releasedwork.js"></script>
   <script src="play-cursor.js"></script>
+  <script src="footer-phone.js"></script>
 
   <!-- Lazy-load the Spline runtime + paper-airplane interactions when near viewport -->
   <script>
